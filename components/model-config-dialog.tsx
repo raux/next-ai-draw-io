@@ -269,6 +269,7 @@ export function ModelConfigDialog({
         const isBedrock = selectedProvider.provider === "bedrock"
         const isEdgeOne = selectedProvider.provider === "edgeone"
         const isOllama = selectedProvider.provider === "ollama"
+        const isLMStudio = selectedProvider.provider === "lmstudio"
         const isVertexAI = selectedProvider.provider === "vertexai"
         if (isBedrock) {
             if (
@@ -283,7 +284,12 @@ export function ModelConfigDialog({
             if (!selectedProvider.vertexApiKey) {
                 return
             }
-        } else if (!isEdgeOne && !isOllama && !selectedProvider.apiKey) {
+        } else if (
+            !isEdgeOne &&
+            !isOllama &&
+            !isLMStudio &&
+            !selectedProvider.apiKey
+        ) {
             return
         }
 
@@ -1085,8 +1091,10 @@ export function ModelConfigDialog({
                                                                 dict.modelConfig
                                                                     .apiKey
                                                             }
-                                                            {selectedProvider.provider ===
-                                                                "ollama" &&
+                                                            {(selectedProvider.provider ===
+                                                                "ollama" ||
+                                                                selectedProvider.provider ===
+                                                                    "lmstudio") &&
                                                                 ` ${dict.modelConfig.optional}`}
                                                         </Label>
                                                         <div className="flex gap-2">
@@ -1153,6 +1161,8 @@ export function ModelConfigDialog({
                                                                 disabled={
                                                                     (selectedProvider.provider !==
                                                                         "ollama" &&
+                                                                        selectedProvider.provider !==
+                                                                            "lmstudio" &&
                                                                         !selectedProvider.apiKey) ||
                                                                     validationStatus ===
                                                                         "validating"

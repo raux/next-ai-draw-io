@@ -158,6 +158,21 @@ AI_MODEL=llama3.2
 OLLAMA_BASE_URL=http://localhost:11434
 ```
 
+### LM Studio (ローカル)
+
+LM Studio はローカルで動作する OpenAI 互換 API を提供します。デフォルトでは API キーは不要です。
+
+```bash
+AI_PROVIDER=lmstudio
+AI_MODEL=your-loaded-model-id
+```
+
+任意のカスタム URL（LM Studio を別のポートやホストで実行している場合）:
+
+```bash
+LMSTUDIO_BASE_URL=http://localhost:1234/v1
+```
+
 ### ModelScope
 
 ```bash

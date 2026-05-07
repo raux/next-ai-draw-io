@@ -152,6 +152,27 @@ AI_PROVIDER=ollama
 AI_MODEL=llama3.2
 ```
 
+可选的自定义 URL：
+
+```bash
+OLLAMA_BASE_URL=http://localhost:11434
+```
+
+### LM Studio (本地)
+
+LM Studio 提供本地 OpenAI 兼容 API，默认无需 API 密钥。
+
+```bash
+AI_PROVIDER=lmstudio
+AI_MODEL=your-loaded-model-id
+```
+
+可选的自定义 URL（若 LM Studio 运行在其他端口或主机上）：
+
+```bash
+LMSTUDIO_BASE_URL=http://localhost:1234/v1
+```
+
 ### ModelScope
 
 ```bash
@@ -163,12 +184,6 @@ AI_MODEL=Qwen/Qwen3-235B-A22B-Instruct-2507
 
 ```bash
 MODELSCOPE_BASE_URL=https://your-custom-endpoint
-```
-
-可选的自定义 URL：
-
-```bash
-OLLAMA_BASE_URL=http://localhost:11434
 ```
 
 ### Vercel AI Gateway
