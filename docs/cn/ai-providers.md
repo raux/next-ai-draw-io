@@ -173,6 +173,12 @@ AI_MODEL=your-loaded-model-id
 LMSTUDIO_BASE_URL=http://localhost:1234/v1
 ```
 
+可选的 API 密钥（仅在 LM Studio 设置中启用了身份验证时需要）：
+
+```bash
+LMSTUDIO_API_KEY=your-lmstudio-api-key
+```
+
 ### ModelScope
 
 ```bash
@@ -308,7 +314,7 @@ QINIU_BASE_URL=https://your-custom-endpoint
 如果您配置了**多个** API 密钥，则必须显式设置 `AI_PROVIDER`：
 
 ```bash
-AI_PROVIDER=google  # 或：openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
+AI_PROVIDER=google  # 或：openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, lmstudio, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
 ```
 
 ## 服务端多模型配置

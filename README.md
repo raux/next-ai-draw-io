@@ -208,6 +208,7 @@ See the [Next.js deployment documentation](https://nextjs.org/docs/app/building-
 -   Google Vertex AI
 -   Azure OpenAI
 -   Ollama
+-   LM Studio
 -   OpenRouter
 -   DeepSeek
 -   SiliconFlow

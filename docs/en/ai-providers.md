@@ -188,6 +188,12 @@ Optional custom URL (if running LM Studio on a different port or host):
 LMSTUDIO_BASE_URL=http://localhost:1234/v1
 ```
 
+Optional API key (only needed if you have enabled authentication in LM Studio's settings):
+
+```bash
+LMSTUDIO_API_KEY=your-lmstudio-api-key
+```
+
 ### ModelScope
 
 ```bash
@@ -323,7 +329,7 @@ If you only configure **one** provider's API key, the system will automatically 
 If you configure **multiple** API keys, you must explicitly set `AI_PROVIDER`:
 
 ```bash
-AI_PROVIDER=google  # or: openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
+AI_PROVIDER=google  # or: openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, lmstudio, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
 ```
 
 ## Server-Side Multi-Model Configuration

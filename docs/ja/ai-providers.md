@@ -173,6 +173,12 @@ AI_MODEL=your-loaded-model-id
 LMSTUDIO_BASE_URL=http://localhost:1234/v1
 ```
 
+任意の API キー（LM Studio の設定で認証を有効にしている場合のみ必要）:
+
+```bash
+LMSTUDIO_API_KEY=your-lmstudio-api-key
+```
+
 ### ModelScope
 
 ```bash
@@ -308,7 +314,7 @@ QINIU_BASE_URL=https://your-custom-endpoint
 **複数**の API キーを設定する場合は、`AI_PROVIDER` を明示的に設定する必要があります:
 
 ```bash
-AI_PROVIDER=google  # または: openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
+AI_PROVIDER=google  # または: openai, anthropic, deepseek, siliconflow, doubao, azure, bedrock, openrouter, ollama, lmstudio, gateway, sglang, modelscope, minimax, glm, qwen, kimi, qiniu
 ```
 
 ## サーバーサイドマルチモデル設定
