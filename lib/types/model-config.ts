@@ -8,6 +8,7 @@ export type ProviderName =
     | "azure"
     | "bedrock"
     | "ollama"
+    | "lmstudio"
     | "openrouter"
     | "deepseek"
     | "siliconflow"
@@ -95,6 +96,7 @@ export const PROVIDER_LOGO_MAP: Record<string, string> = {
     openrouter: "openrouter",
     deepseek: "deepseek",
     siliconflow: "siliconflow",
+    lmstudio: "openai", // LM Studio is OpenAI-compatible
     sglang: "openai", // SGLang is OpenAI-compatible
     gateway: "vercel",
     edgeone: "tencent-cloud",
@@ -131,6 +133,10 @@ export const PROVIDER_INFO: Record<
     ollama: {
         label: "Ollama",
         defaultBaseUrl: "https://ollama.com/api",
+    },
+    lmstudio: {
+        label: "LM Studio",
+        defaultBaseUrl: "http://localhost:1234/v1",
     },
     openrouter: {
         label: "OpenRouter",
@@ -315,6 +321,10 @@ export const SUGGESTED_MODELS: Partial<Record<ProviderName, string[]>> = {
         "Qwen/Qwen2.5-7B-Instruct",
         "Qwen/Qwen2-VL-72B-Instruct",
         "qwen3.5-plus",
+    ],
+    lmstudio: [
+        // LM Studio is OpenAI-compatible, models depend on what is loaded locally
+        "default",
     ],
     sglang: [
         // SGLang is OpenAI-compatible, models depend on deployment

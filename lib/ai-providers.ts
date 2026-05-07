@@ -92,6 +92,7 @@ const ALLOWED_CLIENT_PROVIDERS: ProviderName[] = [
     "gateway",
     "edgeone",
     "ollama",
+    "lmstudio",
     "doubao",
     "modelscope",
     "glm",
@@ -545,6 +546,7 @@ const PROVIDER_ENV_VARS: Record<ProviderName, string | null> = {
     vertexai: "GOOGLE_VERTEX_API_KEY",
     azure: "AZURE_API_KEY",
     ollama: null, // No credentials needed for local Ollama
+    lmstudio: null, // No credentials needed for local LM Studio
     openrouter: "OPENROUTER_API_KEY",
     deepseek: "DEEPSEEK_API_KEY",
     siliconflow: "SILICONFLOW_API_KEY",
@@ -652,6 +654,7 @@ function validateProviderCredentials(
  * - AZURE_RESOURCE_NAME, AZURE_API_KEY: Azure OpenAI credentials
  * - AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY: AWS Bedrock credentials
  * - OLLAMA_BASE_URL: Ollama server URL (optional, defaults to https://ollama.com/api)
+ * - LMSTUDIO_BASE_URL: LM Studio server URL (optional, defaults to http://localhost:1234/v1)
  * - OPENROUTER_API_KEY: OpenRouter API key
  * - DEEPSEEK_API_KEY: DeepSeek API key
  * - DEEPSEEK_BASE_URL: DeepSeek endpoint (optional)
@@ -674,7 +677,8 @@ export function getAIModel(overrides?: ClientOverrides): ModelConfig {
         !overrides?.apiKey &&
         !(overrides?.provider === "vertexai" && overrides?.vertexApiKey) &&
         overrides?.provider !== "edgeone" &&
-        !(overrides?.provider === "ollama" && !process.env.OLLAMA_API_KEY)
+        !(overrides?.provider === "ollama" && !process.env.OLLAMA_API_KEY) &&
+        !(overrides?.provider === "lmstudio" && !process.env.LMSTUDIO_API_KEY)
     ) {
         throw new Error(
             `API key is required when using a custom base URL. ` +
@@ -952,6 +956,25 @@ export function getAIModel(overrides?: ClientOverrides): ModelConfig {
             } else {
                 model = ollama(modelId)
             }
+            break
+        }
+
+        case "lmstudio": {
+            const baseURL =
+                overrides?.baseUrl ||
+                process.env.LMSTUDIO_BASE_URL ||
+                "http://localhost:1234/v1"
+            // SECURITY: When client provides a custom base URL, only use
+            // client-provided API key. Never fall back to server LMSTUDIO_API_KEY
+            // to prevent leaking server credentials to user-controlled endpoints.
+            const apiKey = overrides?.baseUrl
+                ? overrides?.apiKey || undefined
+                : overrides?.apiKey || process.env.LMSTUDIO_API_KEY || undefined
+            const lmstudioProvider = createOpenAI({
+                apiKey: apiKey || "lmstudio", // LM Studio does not require an API key
+                baseURL,
+            })
+            model = lmstudioProvider.chat(modelId)
             break
         }
 
@@ -1290,7 +1313,7 @@ export function getAIModel(overrides?: ClientOverrides): ModelConfig {
 
         default:
             throw new Error(
-                `Unknown AI provider: ${provider}. Supported providers: bedrock, openai, anthropic, google, azure, ollama, openrouter, deepseek, siliconflow, sglang, gateway, edgeone, doubao, modelscope, glm, qwen, qiniu, kimi, minimax, novita`,
+                `Unknown AI provider: ${provider}. Supported providers: bedrock, openai, anthropic, google, azure, ollama, lmstudio, openrouter, deepseek, siliconflow, sglang, gateway, edgeone, doubao, modelscope, glm, qwen, qiniu, kimi, minimax, novita`,
             )
     }
 

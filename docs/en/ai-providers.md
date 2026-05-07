@@ -173,6 +173,21 @@ Optional custom URL:
 OLLAMA_BASE_URL=http://localhost:11434
 ```
 
+### LM Studio (Local)
+
+LM Studio exposes a local OpenAI-compatible API. No API key is required by default.
+
+```bash
+AI_PROVIDER=lmstudio
+AI_MODEL=your-loaded-model-id
+```
+
+Optional custom URL (if running LM Studio on a different port or host):
+
+```bash
+LMSTUDIO_BASE_URL=http://localhost:1234/v1
+```
+
 ### ModelScope
 
 ```bash

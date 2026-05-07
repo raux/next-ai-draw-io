@@ -79,7 +79,12 @@ export async function POST(req: Request) {
                     { status: 400 },
                 )
             }
-        } else if (provider !== "ollama" && provider !== "edgeone" && !apiKey) {
+        } else if (
+            provider !== "ollama" &&
+            provider !== "lmstudio" &&
+            provider !== "edgeone" &&
+            !apiKey
+        ) {
             return NextResponse.json(
                 { valid: false, error: "API key is required" },
                 { status: 400 },
@@ -191,6 +196,15 @@ export async function POST(req: Request) {
                     }),
                 })
                 model = ollamaProvider(modelId)
+                break
+            }
+
+            case "lmstudio": {
+                const lmstudio = createOpenAI({
+                    apiKey: apiKey || "lmstudio", // LM Studio does not require an API key
+                    baseURL: baseUrl || "http://localhost:1234/v1",
+                })
+                model = lmstudio.chat(modelId)
                 break
             }
 
